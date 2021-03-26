@@ -10,8 +10,8 @@ using NguyenDucTin_C1903L_BookApi.Data;
 namespace NguyenDucTin_C1903L_BookApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210326014631_InitialDB")]
-    partial class InitialDB
+    [Migration("20210326033244_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,8 +55,8 @@ namespace NguyenDucTin_C1903L_BookApi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Isbn")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Isbn")
+                        .HasColumnType("int");
 
                     b.Property<string>("PhotoUrl")
                         .HasColumnType("nvarchar(max)");

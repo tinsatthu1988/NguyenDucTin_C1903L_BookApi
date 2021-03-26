@@ -53,8 +53,8 @@ namespace NguyenDucTin_C1903L_BookApi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Isbn")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Isbn")
+                        .HasColumnType("int");
 
                     b.Property<string>("PhotoUrl")
                         .HasColumnType("nvarchar(max)");
