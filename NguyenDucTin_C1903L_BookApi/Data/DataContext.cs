@@ -15,5 +15,6 @@ namespace NguyenDucTin_C1903L_BookApi.Data
 
         }
         public DbSet<AppUser> Users { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }

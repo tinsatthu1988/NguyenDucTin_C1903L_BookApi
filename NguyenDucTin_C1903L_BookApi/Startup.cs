@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NguyenDucTin_C1903L_BookApi.Data;
+using NguyenDucTin_C1903L_BookApi.Interface;
+using NguyenDucTin_C1903L_BookApi.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,7 @@ namespace NguyenDucTin_C1903L_BookApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(option => option.UseSqlServer(_config.GetConnectionString("Default")));
+            services.AddScoped<ITokenService, TokenService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
