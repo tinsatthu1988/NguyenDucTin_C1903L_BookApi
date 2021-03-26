@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NguyenDucTin_C1903L_BookApi.Data;
 using NguyenDucTin_C1903L_BookApi.Entities;
@@ -9,8 +10,7 @@ using System.Threading.Tasks;
 
 namespace NguyenDucTin_C1903L_BookApi.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
+    
     public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
@@ -18,13 +18,14 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
         {
             _context = context;
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {
