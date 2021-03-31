@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using NguyenDucTin_C1903L_BookApi.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,25 +13,42 @@ namespace NguyenDucTin_C1903L_BookApi.Data
 {
     public class Seed
     {
-        public static async Task SeedUsers(DataContext context)
+        public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
-            if (await context.Users.AnyAsync())
+            if (await userManager.Users.AnyAsync())
                 return;
-
             var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedData.json");
 
             var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
 
+            if (users == null) return;
+
+            var roles = new List<AppRole>
+            {
+                new AppRole {Name="Member"},
+                new AppRole {Name="Admin"},
+                new AppRole {Name = "Moderator"}
+            };
+
+            foreach (var role in roles)
+            {
+                await roleManager.CreateAsync(role);
+            }
+
             foreach (var user in users)
             {
-                using var hmac = new HMACSHA512();
-
-                user.Username = user.Username.ToLower();
-                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("123Admin!@#"));
-                user.PasswordSalt = hmac.Key;
-                context.Users.Add(user);
+                user.UserName = user.UserName.ToLower();
+                await userManager.CreateAsync(user, "123Admin!@#");
+                await userManager.AddToRoleAsync(user, "Member");
             }
-            await context.SaveChangesAsync();
+            var admin = new AppUser
+            {
+                UserName = "admin"
+            };
+
+            await userManager.CreateAsync(admin, "123Admin!@#");
+            await userManager.AddToRoleAsync(admin, "Admin");
+            await userManager.AddToRoleAsync(admin, "Moderator");
         }
 
         public static async Task SeedBooks(DataContext context)

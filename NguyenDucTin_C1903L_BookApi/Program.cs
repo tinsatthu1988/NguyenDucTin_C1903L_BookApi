@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NguyenDucTin_C1903L_BookApi.Data;
+using NguyenDucTin_C1903L_BookApi.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +25,10 @@ namespace NguyenDucTin_C1903L_BookApi
             try
             {
                 var context = services.GetRequiredService<DataContext>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                 await context.Database.MigrateAsync();
-                await Seed.SeedUsers(context);
+                await Seed.SeedUsers(userManager, roleManager);
                 await Seed.SeedBooks(context);
             }
             catch (Exception ex)

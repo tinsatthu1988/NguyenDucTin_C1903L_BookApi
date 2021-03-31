@@ -26,15 +26,13 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
+            if (await UserExists(registerDto.UserName)) return BadRequest("UserName is taken");
 
             using var hmac = new HMACSHA512();
 
             var user = new AppUser
             {
-                Username = registerDto.Username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key
+                UserName = registerDto.UserName.ToLower(),   
             };
 
             _context.Users.Add(user);
@@ -42,7 +40,7 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
 
             return new UserDto
             {
-                Username = user.Username,
+                UserName = user.UserName,
                 Token = _tokenService.CreateToken(user)
             };
         }
@@ -51,29 +49,20 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var user = await _context.Users
-                .SingleOrDefaultAsync(x => x.Username == loginDto.Username);
+                .SingleOrDefaultAsync(x => x.UserName == loginDto.UserName);
 
-            if (user == null) return Unauthorized("Invalid username");
-
-            using var hmac = new HMACSHA512(user.PasswordSalt);
-
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
-            }
+            if (user == null) return Unauthorized("Invalid UserName");
 
             return new UserDto
             {
-                Username = user.Username,
+                UserName = user.UserName,
                 Token = _tokenService.CreateToken(user)
             };
         }
 
-        private async Task<bool> UserExists(string username)
+        private async Task<bool> UserExists(string UserName)
         {
-            return await _context.Users.AnyAsync(x => x.Username == username.ToLower());
+            return await _context.Users.AnyAsync(x => x.UserName == UserName.ToLower());
         }
     }
 }

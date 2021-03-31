@@ -7,7 +7,7 @@ namespace NguyenDucTin_C1903L_BookApi.DTO
 {
     public class UserDto
     {
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public string Token { get; set; }
     }
 }
