@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NguyenDucTin_C1903L_BookApi.DTO;
 using NguyenDucTin_C1903L_BookApi.Entities;
@@ -100,6 +101,37 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
 
             if (await _bookRepository.SaveAllAsync()) return NoContent();
             return BadRequest("Failed to delete book");
+        }
+
+        [Authorize(Policy = "ModerateAdminRole")]
+        [HttpPost("add-photo/{bookId}")]
+        public async Task<ActionResult<PhotoBookDto>> AddPhoto(IFormFile file, int bookId)
+        {
+            var book = await _bookRepository.GetBookByIdAsync(bookId);
+            if (book == null) return NotFound();
+
+            var result = await _photoService.AddPhotoAsync(file);
+            if (result.Error != null) return BadRequest(result.Error.Message);
+
+            var photo = new PhotoBook
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
+
+            if (book.Photos.Count == 0)
+            {
+                photo.IsMain = true;
+            }
+
+            book.Photos.Add(photo);
+
+            if (await _bookRepository.SaveAllAsync())
+            {
+                return _mapper.Map<PhotoBookDto>(photo);
+            }
+
+            return BadRequest("Failed to add photo");
         }
 
     }
