@@ -32,5 +32,15 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
             return Ok(_mapper.Map<IEnumerable<BookDto>>(books));
         }
 
+        [AllowAnonymous]
+        [HttpGet("{category}")]
+        public async Task<ActionResult<IEnumerable<BookDto>>> GetBookByCategory(string categoryName)
+        {
+            var books = await _bookRepository.GetBooksByCategoryAsync(categoryName);
+            if (books == null) return NotFound();
+
+            return Ok(_mapper.Map<IEnumerable<BookDto>>(books));
+        }
+
     }
 }

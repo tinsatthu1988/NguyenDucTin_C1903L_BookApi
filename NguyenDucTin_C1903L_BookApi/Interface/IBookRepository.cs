@@ -17,6 +17,6 @@ namespace NguyenDucTin_C1903L_BookApi.Interface
         Task<Book> GetBookByIsbnAsync(string bookIsbn);
         Task<bool> BookExists(int bookId);
         Task<bool> BookExists(string bookIsbn);
-        Task<IEnumerable<Book>> GetBooksByCategoryAsync(int categoryId);
+        Task<IEnumerable<Book>> GetBooksByCategoryAsync(string categoryName);
     }
 }

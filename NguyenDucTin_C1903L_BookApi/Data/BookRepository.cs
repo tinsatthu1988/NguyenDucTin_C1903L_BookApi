@@ -50,7 +50,16 @@ namespace NguyenDucTin_C1903L_BookApi.Data
         {
             return await _context.Books
                 .Include(p => p.Photos)
-                .Include(b => b.Category)
+                .Include(c => c.Category)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Book>> GetBooksByCategoryAsync(string categoryName)
+        {
+            return await _context.Books
+                .Include(p => p.Photos)
+                .Include(c => c.Category)
+                .Where(c => c.Category.Name.ToLower() == categoryName)
                 .ToListAsync();
         }
 
