@@ -55,13 +55,14 @@ namespace NguyenDucTin_C1903L_BookApi
             {
                 opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
                 opt.AddPolicy("ModerateAdminRole", policy => policy.RequireRole("Admin", "Moderator"));
+                opt.AddPolicy("MemberAdminRole", policy => policy.RequireRole("Admin", "Member"));
             });
 
             services.AddDbContext<DataContext>(option => option.UseSqlServer(_config.GetConnectionString("Default")));
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
-            //services.AddScoped<IBookRepository, BookRepository>();
-            //services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IPhotoService, PhotoService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddControllers();
             

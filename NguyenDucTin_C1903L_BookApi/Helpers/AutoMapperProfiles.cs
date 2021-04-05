@@ -16,6 +16,12 @@ namespace NguyenDucTin_C1903L_BookApi.Helpers
             CreateMap<MemberDto, AppUser>();
             CreateMap<RegisterDto, AppUser>();
             CreateMap<MemberUpdateDto, AppUser>();
+            CreateMap<Book, BookDto>()
+                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain).Url))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+
+            CreateMap<PhotoBook, PhotoBookDto>();
+            CreateMap<PhotoBookDto, PhotoBook>();
         }
     }
 }

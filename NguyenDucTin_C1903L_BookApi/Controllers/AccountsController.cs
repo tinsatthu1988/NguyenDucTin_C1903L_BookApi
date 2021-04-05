@@ -77,6 +77,33 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
             };
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        {
+            var users = await _userRepository.GetUsersAsync();
+            return Ok(_mapper.Map<IEnumerable<MemberDto>>(users));
+        }
+
+        [Authorize]
+        [HttpGet("{username}")]
+        public async Task<ActionResult<AppUser>> GetUser(string username)
+        {
+            var user = await _userRepository.GetUserByUserNameAsync(username);
+            if (user == null) return NotFound();
+
+            var currentUsername = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userRepository.GetUserByUserNameAsync(currentUsername);
+            var userRoles = await _userManager.GetRolesAsync(currentUser);
+
+            foreach (var role in userRoles)
+            {
+                if(role == "Admin" || currentUsername == username) 
+                    return Ok(_mapper.Map<MemberDto>(user));
+            }
+            return BadRequest("Cannot see another user information");
+        }
+
         [Authorize]
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
@@ -94,10 +121,27 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
             return BadRequest("Failed to update user");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateUserByAdmin(int id, MemberUpdateDto memberUpdateDto)
+        {
+            var user = await _userRepository.GetUserByIdAsync(id);
+            if (user == null) return NotFound();
+
+            _mapper.Map(memberUpdateDto, user);
+
+            _userRepository.Update(user);
+
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to update user");
+        }
+
         private async Task<bool> UserExist(string username)
         {
             return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
         }
+
 
 
 
