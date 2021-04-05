@@ -21,27 +21,17 @@ namespace NguyenDucTin_C1903L_BookApi.Data
             _context.Books.Add(book);
         }
 
-        public Task<bool> BookExists(int bookId)
+        public async Task<bool> BookExists(int bookId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> BookExists(string bookIsbn)
-        {
-            throw new NotImplementedException();
+             return await _context.Books.AnyAsync(b => b.Id == bookId);
         }
 
         public void DeleteBook(Book book)
         {
-            throw new NotImplementedException();
+            _context.Books.Remove(book);
         }
 
         public Task<Book> GetBookByIdAsync(int bookId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Book> GetBookByIsbnAsync(string bookIsbn)
         {
             throw new NotImplementedException();
         }
@@ -63,19 +53,15 @@ namespace NguyenDucTin_C1903L_BookApi.Data
                 .ToListAsync();
         }
 
-        public Task<IEnumerable<Book>> GetBooksByCategoryAsync(int categoryId)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<bool> SaveAllAsync()
+        public async Task<bool> SaveAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public void UpdateBook(Book book)
         {
-            throw new NotImplementedException();
+            _context.Entry(book).State = EntityState.Modified;
         }
     }
 }

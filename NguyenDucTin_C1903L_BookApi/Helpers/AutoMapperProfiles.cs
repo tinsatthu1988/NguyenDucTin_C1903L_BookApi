@@ -20,6 +20,8 @@ namespace NguyenDucTin_C1903L_BookApi.Helpers
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain).Url))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
+            CreateMap<BookUpsertDto, Book>();
+
             CreateMap<PhotoBook, PhotoBookDto>();
             CreateMap<PhotoBookDto, PhotoBook>();
         }

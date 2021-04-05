@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NguyenDucTin_C1903L_BookApi.DTO;
+using NguyenDucTin_C1903L_BookApi.Entities;
 using NguyenDucTin_C1903L_BookApi.Interface;
 using System;
 using System.Collections.Generic;
@@ -34,12 +35,29 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
 
         [AllowAnonymous]
         [HttpGet("{category}")]
-        public async Task<ActionResult<IEnumerable<BookDto>>> GetBookByCategory(string categoryName)
+        public async Task<ActionResult<IEnumerable<BookDto>>> GetBookByCategory(string category)
         {
-            var books = await _bookRepository.GetBooksByCategoryAsync(categoryName);
+            var books = await _bookRepository.GetBooksByCategoryAsync(category);
             if (books == null) return NotFound();
 
             return Ok(_mapper.Map<IEnumerable<BookDto>>(books));
+        }
+
+        [Authorize(Policy = "ModerateAdminRole")]
+        [HttpPost]
+        public async Task<ActionResult<BookDto>> CreateBook(BookUpsertDto createBookDto)
+        {
+            var book = new Book();
+
+            _mapper.Map(createBookDto, book);
+
+            _bookRepository.AddBook(book);
+
+            if (await _bookRepository.SaveAllAsync())
+
+                return Ok(createBookDto);
+
+            return BadRequest("Failed to create a new Book");
         }
 
     }
