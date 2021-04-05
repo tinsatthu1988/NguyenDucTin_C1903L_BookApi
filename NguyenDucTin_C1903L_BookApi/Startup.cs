@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NguyenDucTin_C1903L_BookApi.Data;
+using NguyenDucTin_C1903L_BookApi.Entities;
+using NguyenDucTin_C1903L_BookApi.Helpers;
 using NguyenDucTin_C1903L_BookApi.Interface;
 using NguyenDucTin_C1903L_BookApi.Services;
 using System;
@@ -34,13 +37,34 @@ namespace NguyenDucTin_C1903L_BookApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CloudinarySettings>(_config.GetSection("CloudinarySettings"));
+            services.AddIdentityCore<AppUser>(opt =>
+            {
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+            })
+                .AddRoles<AppRole>()
+                .AddRoleManager<RoleManager<AppRole>>()
+                .AddSignInManager<SignInManager<AppUser>>()
+                .AddRoleValidator<RoleValidator<AppRole>>()
+                .AddEntityFrameworkStores<DataContext>();
+
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+                opt.AddPolicy("ModerateAdminRole", policy => policy.RequireRole("Admin", "Moderator"));
+            });
+
             services.AddDbContext<DataContext>(option => option.UseSqlServer(_config.GetConnectionString("Default")));
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            //services.AddScoped<IBookRepository, BookRepository>();
+            //services.AddScoped<IPhotoService, PhotoService>();
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "NguyenDucTin_C1903L_BookApi", Version = "v1" });
-            });
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

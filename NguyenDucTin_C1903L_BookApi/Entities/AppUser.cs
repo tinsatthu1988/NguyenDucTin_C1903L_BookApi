@@ -13,8 +13,10 @@ namespace NguyenDucTin_C1903L_BookApi.Entities
         //public byte[] PasswordHash { get; set; }
         //public byte[] PasswordSalt { get; set; }
         //public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
+        public string StreetAddress { get; set; }
+        public string Ward { get; set; }
+        public string District { get; set; }
+        public string City { get; set; }
 
         public ICollection<AppUserRole> UserRoles { get; set; }
     }

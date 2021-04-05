@@ -29,7 +29,7 @@ namespace NguyenDucTin_C1903L_BookApi
                 var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                 await context.Database.MigrateAsync();
                 await Seed.SeedUsers(userManager, roleManager);
-                await Seed.SeedBooks(context);
+                //await Seed.SeedBooks(context);
             }
             catch (Exception ex)
             {

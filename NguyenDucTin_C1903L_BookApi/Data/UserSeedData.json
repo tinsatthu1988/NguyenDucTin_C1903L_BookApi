@@ -1,20 +1,24 @@
 [
   {
-    "UserName": "Rebekah"
+    "UserName": "Tin",
+    "StreetAddress": "12 Phan Van Tri",
+    "Ward": "3",
+    "District": "Go Vap",
+    "City": "Ho Chi Minh"
   },
   {
-    "UserName": "Rhea"
+    "UserName": "Tri",
+    "StreetAddress": "1 Hoang Sa",
+    "Ward": "Da Kao",
+    "District": "1",
+    "City": "Ho Chi Minh"
   },
   {
-    "UserName": "Aileen"
-  },
-  {
-    "UserName": "Marie"
-  },
-  {
-    "UserName": "Sallie"
-  },
-  {
-    "UserName": "Laura"
+    "UserName": "Ngan",
+    "StreetAddress": "100 CMT8",
+    "Ward": "10",
+    "District": "Tan Binh",
+    "City": "Ho Chi Minh"
   }
+
 ]

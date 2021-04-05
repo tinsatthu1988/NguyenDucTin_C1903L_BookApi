@@ -51,21 +51,21 @@ namespace NguyenDucTin_C1903L_BookApi.Data
             await userManager.AddToRoleAsync(admin, "Moderator");
         }
 
-        public static async Task SeedBooks(DataContext context)
-        {
-            if (await context.Books.AnyAsync())
-                return;
-            var bookData = await System.IO.File.ReadAllTextAsync("Data/BookSeedData.json");
+        //public static async Task SeedCatagories(DataContext context)
+        //{
+        //    if (await context.Books.AnyAsync())
+        //        return;
+        //    var bookData = await System.IO.File.ReadAllTextAsync("Data/CatagorySeedData.json");
 
-            var books = JsonSerializer.Deserialize<List<Book>>(bookData);
+        //    var books = JsonSerializer.Deserialize<List<Book>>(bookData);
 
 
-            foreach (var book in books)
-            {
-                context.Books.Add(book);
-            }
+        //    foreach (var book in books)
+        //    {
+        //        context.Books.Add(book);
+        //    }
 
-            await context.SaveChangesAsync();
-        }
+        //    await context.SaveChangesAsync();
+        //}
     }
 }

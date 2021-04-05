@@ -19,7 +19,7 @@ namespace NguyenDucTin_C1903L_BookApi.Data
 
         }
 
-        public DbSet<Book> Books { get; set; }
+        //public DbSet<Book> Books { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
