@@ -40,21 +40,6 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
             return Ok(_mapper.Map<MemberDto>(user));
         }
 
-        [Authorize(Policy = "MemberAdminRole")]
-        [HttpPut]
-        public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
-        {
-            var UserName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            var user = await _userRepository.GetUserByUserNameAsync(UserName);
-
-            _mapper.Map(memberUpdateDto, user);
-
-            _userRepository.Update(user);
-
-            if (await _userRepository.SaveAllAsync()) return NoContent();
-
-            return BadRequest("Failed to update user");
-        }
+        
     }
 }

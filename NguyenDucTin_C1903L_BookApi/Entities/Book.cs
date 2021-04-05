@@ -16,5 +16,8 @@ namespace NguyenDucTin_C1903L_BookApi.Entities
         public int Price { get; set; }
         public DateTime DatePublished { get; set; } = DateTime.Now;
         public string PhotoUrl { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+        public ICollection<PhotoBook> Photos { get; set; }
     }
 }

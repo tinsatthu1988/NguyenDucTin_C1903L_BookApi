@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,22 +10,25 @@ using NguyenDucTin_C1903L_BookApi.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NguyenDucTin_C1903L_BookApi.Controllers
 {
-    public class AccountController : BaseApiController
+    public class AccountsController : BaseApiController
     {
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
+        public AccountsController(IUserRepository userRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
         {
             _signInManager = signInManager;
+            _userRepository = userRepository;
             _userManager = userManager;
             _tokenService = tokenService;
             _mapper = mapper;
@@ -73,10 +77,29 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
             };
         }
 
+        [Authorize(Policy = "MemberAdminRole")]
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+        {
+            var UserName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var user = await _userRepository.GetUserByUserNameAsync(UserName);
+
+            _mapper.Map(memberUpdateDto, user);
+
+            _userRepository.Update(user);
+
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to update user");
+        }
+
         private async Task<bool> UserExist(string username)
         {
             return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
         }
+
+
 
         
     }
