@@ -13,8 +13,20 @@ namespace NguyenDucTin_C1903L_BookApi.Data
 {
     public class Seed
     {
-        public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+        public static async Task SeedUsers(DataContext context, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
+            // Seed Categories
+            if (await context.Categories.AnyAsync())
+                return;
+            var categoryData = await System.IO.File.ReadAllTextAsync("Data/CategorySeedData.json");
+            var categories = JsonSerializer.Deserialize<List<Category>>(categoryData);
+            foreach (var category in categories)
+            {
+                context.Categories.Add(category);
+            }
+            await context.SaveChangesAsync();
+
+            // Seed Users
             if (await userManager.Users.AnyAsync())
                 return;
             var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedData.json");
@@ -50,22 +62,5 @@ namespace NguyenDucTin_C1903L_BookApi.Data
             await userManager.AddToRoleAsync(admin, "Admin");
             await userManager.AddToRoleAsync(admin, "Moderator");
         }
-
-        //public static async Task SeedCatagories(DataContext context)
-        //{
-        //    if (await context.Books.AnyAsync())
-        //        return;
-        //    var bookData = await System.IO.File.ReadAllTextAsync("Data/CatagorySeedData.json");
-
-        //    var books = JsonSerializer.Deserialize<List<Book>>(bookData);
-
-
-        //    foreach (var book in books)
-        //    {
-        //        context.Books.Add(book);
-        //    }
-
-        //    await context.SaveChangesAsync();
-        //}
     }
 }

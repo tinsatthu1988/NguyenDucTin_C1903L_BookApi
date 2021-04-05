@@ -55,7 +55,6 @@ namespace NguyenDucTin_C1903L_BookApi
             {
                 opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
                 opt.AddPolicy("ModerateAdminRole", policy => policy.RequireRole("Admin", "Moderator"));
-                opt.AddPolicy("MemberAdminRole", policy => policy.RequireRole("Admin", "Member"));
             });
 
             services.AddDbContext<DataContext>(option => option.UseSqlServer(_config.GetConnectionString("Default")));

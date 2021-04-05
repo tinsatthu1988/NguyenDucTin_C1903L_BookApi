@@ -1,0 +1,153 @@
+[
+  {
+    "Name": "Comic",
+    "Books": [
+      {
+        "ISBN": "1472269055",
+        "Title": "Strange Planet: The Comic Sensation of the Year",
+        "Author": "Nathan W. Pyle",
+        "Description": "Based on the phenomenally popular Instagram comic, a hilariously perceptive and hugely addictive look at an alien world not unlike our own",
+        "Price": 21,
+        "Photos": [
+          {
+            "Url": "https://res.cloudinary.com/tinsatthu/image/upload/v1617598109/1_y6fao4.jpg",
+            "IsMain": true
+          }
+        ]
+      },
+      {
+        "ISBN": "006097625X",
+        "Title": "Understanding Comics",
+        "Author": "Scott McCloud",
+        "Description": "The bestselling international classic on storytelling and visual communication You must read this book.Neil Gaiman Praised throughout the cartoon industry by such luminaries as Art Spiegelman, Matt Groening, and Will Eisner, Scott McCloud's Understanding Comics is a seminal examination of comics art: its rich history, surprising technical components, and major cultural significance. Explore the secret world between the panels, through the lines, and within the hidden symbols of a powerful but misunderstood art form.",
+        "Price": 25,
+        "Photos": [
+          {
+            "Url": "https://res.cloudinary.com/tinsatthu/image/upload/v1617598304/2_v7hyd7.jpg",
+            "IsMain": true
+          }
+        ]
+      },
+      {
+        "ISBN": "1409564258",
+        "Title": "Write and Draw Your Own Comics",
+        "Author": "Louie Stowell",
+        "Description": "Kapow! Boom! An awesome activity book for budding comic artists to imagine and draw their own comic strips. Simple step-by-step instructions, with lots of handy tips and hints, show children how to create graphic stories using all the devices employed in 'real' comics. Includes ideas for characters and storylines, sample comic strips and drawing tips. With stickers to add to comic strips for extra colour and detail.",
+        "Price": 32,
+        "Photos": [
+          {
+            "Url": "https://res.cloudinary.com/tinsatthu/image/upload/v1617598445/3_tl46hd.jpg",
+            "IsMain": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "programming",
+    "Books": [
+      {
+        "ISBN": "0131103628",
+        "Title": "C Programming Language",
+        "Author": "Dennis Ritchie",
+        "Description": "The authors present the complete guide to ANSI standard C language programming. Written by the developers of C, this new version helps readers keep up with the finalized ANSI standard for C while showing how to take advantage of C's rich set of operators, economy of expression, improved control flow, and data structures. The 2/E has been completely rewritten with additional examples and problem sets to clarify the implementation of difficult language constructs. For years, C programmers have let K&R guide them to building well-structured and efficient programs. Now this same help is available to those working with ANSI compilers. Includes detailed coverage of the C language plus the official C language reference manual for at-a-glance help with syntax notation, declarations, ANSI changes, scope rules, and the list goes on and on.",
+        "Price": 24,
+        "Photos": [
+          {
+            "Url": "https://res.cloudinary.com/tinsatthu/image/upload/v1617598594/1_antzpo.jpg",
+            "IsMain": true
+          }
+        ]
+      },
+      {
+        "ISBN": "1593279280",
+        "Title": "Python Crash Course (2nd Edition) : A Hands-On, Project-Based Introduction to Programming",
+        "Author": "Eric Matthes",
+        "Description": "Second edition of the best-selling Python book in the world. A fast-paced, no-nonsense guide to programming in Python. Updated and thoroughly revised to reflect the latest in Python code and practices. Python Crash Course is the world's best-selling guide to the Python programming language. This fast-paced, thorough introduction to programming with Python will have you writing programs, solving problems, and making things that work in no time. In the first half of the book, you'll learn basic programming concepts, such as variables, lists, classes, and loops, and practice writing clean code with exercises for each topic. You'll also learn how to make your programs interactive and test your code safely before adding it to a project. In the second half, you'll put your new knowledge into practice with three substantial projects: a Space Invaders-inspired arcade game, a set of data visualizations with Python's handy libraries, and a simple web app you can deploy online.",
+        "Price": 26,
+        "Photos": [
+          {
+            "Url": "https://res.cloudinary.com/tinsatthu/image/upload/v1617598677/2_hgom3l.jpg",
+            "IsMain": true
+          }
+        ]
+      },
+      {
+        "ISBN": "144934013X",
+        "Title": "Head First JavaScript Programming",
+        "Author": "Eric Freeman",
+        "Description": "What will you learn from this book? This brain-friendly guide teaches you everything from JavaScript language fundamentals to advanced topics, including objects, functions, and the browser's document object model. You won't just be reading - you'll be playing games, solving puzzles, pondering mysteries, and interacting with JavaScript in ways you never imagined. And you'll write real code, lots of it, so you can start building your own web applications. Prepare to open your mind as you learn (and nail) key topics including: The inner details of JavaScript How JavaScript works with the browser The secrets of JavaScript types Using arrays The power of functions How to work with objects Making use of prototypes Understanding closures Writing and testing applications What's so special about this book? We think your time is too valuable to waste struggling with new concepts. ",
+        "Price": 44,
+        "Photos": [
+          {
+            "Url": "https://res.cloudinary.com/tinsatthu/image/upload/v1617602286/3_ljzxcz.jpg",
+            "IsMain": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "fantasy",
+    "Books": [
+      {
+        "ISBN": "0545980259",
+        "Title": "KINGDOM OF FANTASY #1",
+        "Author": "Geronimo Stilton",
+        "Description": "Join Geronimo for his biggest, most fabumouse adventure yet! Dragons, mermaids, and much, much more await readers in this very special edition!",
+        "Price": 34,
+        "Photos": [
+          {
+            "Url": "https://res.cloudinary.com/tinsatthu/image/upload/v1617603146/1_hgyrar.jpg",
+            "IsMain": true
+          }
+        ]
+      },
+      {
+        "ISBN": "1646090004",
+        "Title": "Final Fantasy Xv: The Dawn Of The Future",
+        "Author": "Stephen Kohler",
+        "Description": "A volume of all-new, character-driven stories expanding on the world of the hit video game Final Fantasy XV. This deluxe, hardcover edition includes full-color inserts featuring concept art and exclusive content. To oppose the gods or yield to fate? That is the question confronting each of the characters in The Dawn of the Future. Ardyn, having saved countless lives from the Starscourge, means to become the Founder King of Lucis and instead is cast into tragic exile. On the day the Empire falls, as the imperial capital collapses around them, Commodore Aranea is entrusted with the life of a singular young girl. The Oracle Lunafreya, upon awakening from the slumber of death, discovers that her body has undergone an extraordinary transformation. And after gazing upon the eternal, Noctis, the True King, finally comes to terms with his destiny. Herein lie the stories of the dawning of a new world in Final Fantasy XV.",
+        "Price": 25,
+        "Photos": [
+          {
+            "Url": "https://res.cloudinary.com/tinsatthu/image/upload/v1617603216/2_lriter.jpg",
+            "IsMain": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "romance",
+    "Books": [
+      {
+        "ISBN": "0141981466",
+        "Title": "Modern Romance",
+        "Author": "Aziz Ansari",
+        "Description": "The #1 New York Times Bestseller. A hilarious, thoughtful, and in-depth exploration of the pleasures and perils of modern romance from Aziz Ansari, the Emmy-award winning star of Master of None and one of this generation's sharpest comedic voices",
+        "Price": 38,
+        "Photos": [
+          {
+            "Url": "https://res.cloudinary.com/tinsatthu/image/upload/v1617603341/1_ushwth.jpg",
+            "IsMain": true
+          }
+        ]
+      },
+      {
+        "ISBN": "0062353683",
+        "Title": "Romancing Mister Bridgerton",
+        "Author": "Julia Quinn",
+        "Description": "From #1 New York Times bestselling author Julia Quinn comes the story of Colin Bridgerton and Penelope Featherington, in the fourth of her beloved Regency-set novels featuring the charming, powerful Bridgerton family, now a series created by Shondaland for Netflix.",
+        "Price": 35,
+        "Photos": [
+          {
+            "Url": "https://res.cloudinary.com/tinsatthu/image/upload/v1617603424/2_qefcjz.jpg",
+            "IsMain": true
+          }
+        ]
+      }
+    ]
+  }
+  
+]

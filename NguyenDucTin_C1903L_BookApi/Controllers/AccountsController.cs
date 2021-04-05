@@ -77,7 +77,7 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
             };
         }
 
-        [Authorize(Policy = "MemberAdminRole")]
+        [Authorize]
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
         {
