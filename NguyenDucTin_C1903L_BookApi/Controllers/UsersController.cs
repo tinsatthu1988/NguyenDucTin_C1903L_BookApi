@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace NguyenDucTin_C1903L_BookApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class UsersController : BaseApiController
     {
         private readonly IUserRepository _userRepository;

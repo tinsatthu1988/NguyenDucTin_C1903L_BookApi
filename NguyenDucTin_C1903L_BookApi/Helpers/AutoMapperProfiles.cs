@@ -13,6 +13,8 @@ namespace NguyenDucTin_C1903L_BookApi.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<AppUser, MemberDto>();
+            CreateMap<MemberDto, AppUser>();
+            CreateMap<RegisterDto, AppUser>();
         }
     }
 }

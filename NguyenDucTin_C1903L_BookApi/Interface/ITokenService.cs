@@ -8,6 +8,6 @@ namespace NguyenDucTin_C1903L_BookApi.Interface
 {
     public interface ITokenService
     {
-        string CreateToken(AppUser user);
+        Task<string> CreateToken(AppUser user);
     }
 }
