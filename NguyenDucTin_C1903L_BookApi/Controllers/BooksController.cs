@@ -45,7 +45,7 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
 
         [Authorize(Policy = "ModerateAdminRole")]
         [HttpPost]
-        public async Task<ActionResult<BookDto>> CreateBook(BookUpsertDto createBookDto)
+        public async Task<ActionResult> CreateBook(BookUpsertDto createBookDto)
         {
             var book = new Book();
 
@@ -58,6 +58,23 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
                 return Ok(createBookDto);
 
             return BadRequest("Failed to create a new Book");
+        }
+
+        [Authorize(Policy = "ModerateAdminRole")]
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateBook(int id, BookUpsertDto updateBookDto)
+        {
+            var book = await _bookRepository.GetBookByIdAsync(id);
+            if (book == null) return NotFound();
+
+            _mapper.Map(updateBookDto, book);
+
+            _bookRepository.UpdateBook(book);
+
+            if (await _bookRepository.SaveAllAsync())
+                return NoContent();
+
+            return BadRequest("Failed to update book");
         }
 
     }

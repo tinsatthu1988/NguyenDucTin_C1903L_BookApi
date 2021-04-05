@@ -31,9 +31,12 @@ namespace NguyenDucTin_C1903L_BookApi.Data
             _context.Books.Remove(book);
         }
 
-        public Task<Book> GetBookByIdAsync(int bookId)
+        public async Task<Book> GetBookByIdAsync(int bookId)
         {
-            throw new NotImplementedException();
+            return await _context.Books
+                .Include(p => p.Photos)
+                .Include(b => b.Category)
+                .SingleOrDefaultAsync(x => x.Id == bookId);
         }
 
         public async Task<IEnumerable<Book>> GetBooksAsync()
