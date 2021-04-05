@@ -77,5 +77,7 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
         {
             return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
         }
+
+        
     }
 }

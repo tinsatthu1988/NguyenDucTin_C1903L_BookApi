@@ -9,11 +9,11 @@ using NguyenDucTin_C1903L_BookApi.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace NguyenDucTin_C1903L_BookApi.Controllers
 {
-    [Authorize]
     public class UsersController : BaseApiController
     {
         private readonly IUserRepository _userRepository;
@@ -23,7 +23,8 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
             _userRepository = userRepository;
             _mapper = mapper;
         }
- 
+
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
@@ -31,11 +32,29 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
             return Ok(_mapper.Map<IEnumerable<MemberDto>>(users));
         }
 
+        [Authorize(Policy = "MemberAdminRole")]
         [HttpGet("{username}")]
         public async Task<ActionResult<AppUser>> GetUser(string username)
         {
             var user = await _userRepository.GetUserByUserNameAsync(username);
             return Ok(_mapper.Map<MemberDto>(user));
+        }
+
+        [Authorize(Policy = "MemberAdminRole")]
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+        {
+            var UserName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var user = await _userRepository.GetUserByUserNameAsync(UserName);
+
+            _mapper.Map(memberUpdateDto, user);
+
+            _userRepository.Update(user);
+
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to update user");
         }
     }
 }

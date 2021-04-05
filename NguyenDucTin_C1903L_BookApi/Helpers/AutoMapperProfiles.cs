@@ -15,6 +15,7 @@ namespace NguyenDucTin_C1903L_BookApi.Helpers
             CreateMap<AppUser, MemberDto>();
             CreateMap<MemberDto, AppUser>();
             CreateMap<RegisterDto, AppUser>();
+            CreateMap<MemberUpdateDto, AppUser>();
         }
     }
 }
