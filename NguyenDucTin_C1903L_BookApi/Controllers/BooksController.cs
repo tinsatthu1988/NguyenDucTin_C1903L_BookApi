@@ -77,5 +77,30 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
             return BadRequest("Failed to update book");
         }
 
+        [Authorize(Policy = "ModerateAdminRole")]
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteBook(int id)
+        {
+            var book = await _bookRepository.GetBookByIdAsync(id);
+            if (book == null) return NotFound();
+
+            var photos = book.Photos.ToList();
+
+            foreach (var photo in photos)
+            {
+                if (photo.PublicId != null)
+                {
+                    var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+                    if (result.Error != null) return BadRequest(result.Error.Message);
+                }
+                book.Photos.Remove(photo);
+            }
+
+            _bookRepository.DeleteBook(book);
+
+            if (await _bookRepository.SaveAllAsync()) return NoContent();
+            return BadRequest("Failed to delete book");
+        }
+
     }
 }
