@@ -137,6 +137,26 @@ namespace NguyenDucTin_C1903L_BookApi.Controllers
             return BadRequest("Failed to update user");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteUserByAdmin(int id)
+        {
+            var user = await _userRepository.GetUserByIdAsync(id);
+            if (user == null) return NotFound();
+
+            var currentUsername = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.Users.SingleOrDefaultAsync(u => u.UserName == currentUsername);
+
+            if (currentUser == user) return BadRequest("You can not delete yourself!");
+
+            _userRepository.Delete(user);
+
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to delete user");
+        }
+
+
         private async Task<bool> UserExist(string username)
         {
             return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());

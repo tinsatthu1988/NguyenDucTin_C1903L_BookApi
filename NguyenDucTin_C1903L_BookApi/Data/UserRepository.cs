@@ -20,6 +20,12 @@ namespace NguyenDucTin_C1903L_BookApi.Data
             _mapper = mapper;
             _context = context;
         }
+
+        public void Delete(AppUser user)
+        {
+            _context.Users.Remove(user);
+        }
+
         public async Task<MemberDto> GetMemberAsync(string username)
         {
             return await _context.Users

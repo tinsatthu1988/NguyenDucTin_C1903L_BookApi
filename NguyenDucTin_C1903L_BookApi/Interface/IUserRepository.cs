@@ -11,6 +11,8 @@ namespace NguyenDucTin_C1903L_BookApi.Interface
     {
         void Update(AppUser user);
 
+        void Delete(AppUser user);
+
         Task<bool> SaveAllAsync();
 
         Task<IEnumerable<AppUser>> GetUsersAsync();
